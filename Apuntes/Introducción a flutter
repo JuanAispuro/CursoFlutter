@@ -1,0 +1,82 @@
+-- 1.4 Revisión del framework, alcances, funcionalidades y arquitectura base --
+
+Archivo más importante pubspec.yml
+Carpeta test son las pruebas de la aplicación.
+
+pubspec configuraciones necesarias
+
+Dependencias el sdk de flutter.
+Tambien las librerias o paquetes que se van a utilizar.
+
+En secciones posteriores se veran los recursos.
+
+-- ¿1.5 Que es un widget? --
+Un texto se puede colocar dentro de una caja y se le puede poner las propiedades de 
+color, fontsize, background, siendo text el nombre de la etiqueta.
+
+widget  = Caja.
+y puedes colocar cajas dentro de una caja.
+
+Al iniciar el proyecto se abrira una ventana conocida como
+widget inspector
+
+Los widget tendran algo dentro que tambien puede ser un widget, pero tienen comportamiento tambien.
+
+Existen widget Padre y widget hijo
+Tipo
+
+My catalog (My appbar, my listern, my lister)
+MY Carpeta
+
+appbar es el widget hijo de Scaffold
+    return Scaffold(
+        //Widget Padre
+        appBar: AppBar(
+            title: Text("Mi primera aplicación"),
+        ),
+-- 1.6 implementación de nuestro primer widget --
+home: Container(
+        color: Colors.amberAccent,
+        //Style para editar.
+        //Center widget de posicionamiento.
+        child: Center(
+          child: Text(
+            'Primer widget',
+            textAlign: TextAlign.center,
+            style: TextStyle(decoration: TextDecoration.none),
+          ),
+        ),
+      ),
+
+-- 1.7 Categorías de Widget --
+Revisar flutter.dev
+Widget catalog 
+Distintos tipos de reglas
+ - widget de estructuración.
+ - Widget centrado de hijos hacia los padres.
+ - Limitbox Tamano a los widget.
+ - Altos y anchos
+ - Container
+
+ Diferentes tipos de componentes de widget
+ - appbar
+ - bottomnavigationbar.
+ - Drawers(por la derecha).
+ - Tapbar.
+
+ Diferentes tipos de widget de textos
+ - Colecciones de texto.
+ - Rich text
+
+ Cada widget tiene la documnentación de como se usa y como implementarlo.
+
+ -- 1.8 Estructura y Organización del proyecto --
+ Carpeta UI para los widget y la estructuración.
+ Creacion carpeta ui, ui.pages, ui.widget
+ carpeta models, carpeta controllers, carpeta services (Para servicios externos del proyecto)
+
+
+ widget = {Contenido, comportamiento y Renderizado}
+
+ -- 1.9 Revisión de errores --
+ 
