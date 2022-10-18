@@ -1,0 +1,17 @@
+-- 2.1 Análisis de layouts --
+ Análisis de mensajes (Nombre, mensaje, foto, pequeno boton sobre la aplicación, etc) --
+ conocido como boton flotante (Se sobrepone a la aplicación).
+
+widget general
+widget hijo (fotografia).
+widget hijo (texto).
+widget hijo (fecha).
+Implementar una guia de estilos, para comprender las reglas de diseño de la aplicación.
+
+Cabecera y un boton flotante.
+
+
+-- 2.2 Guia de Estilos --
+Una guía de estilos, es una línea de disenos, la cual permite la mejora
+de la experiencia del usuario basado en principios y métricas de diseno.
+
