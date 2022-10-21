@@ -15,3 +15,141 @@ Cabecera y un boton flotante.
 Una guía de estilos, es una línea de disenos, la cual permite la mejora
 de la experiencia del usuario basado en principios y métricas de diseno.
 
+Guía de estilos se tienen 3 tipos
+- Android
+- iOS
+- Personalizado
+
+Recomendable iniciar con Android o iOS.
+En el curso utilizaremos Android y seria MaterialApp (Guía de estilos basada en los componentes y reglas de Material Design 2.0)
+
+Componentes: 
+- Navegación.
+- Estructuración.
+- Botones.
+- Entradas de texto.
+- Diálogos e información.
+
+Componentente superior header/navbar
+reglas:
+- Container.
+- Navigation icon (Optional).
+- Title (Optional).
+- Action items (optional).
+- Overflow menu(optional).
+
+Que widget son de Material Desing(en flutter.dev (Catalogo de widget (material component)))
+
+-- 2.3 Temas --
+El tema se pone por defecto el navbar gracias a la guia
+y se puede modificar con background color, pero el (tema) serian los colores y los estilos de texto que puede servir.
+Los (Colores incrustados) esta determinado por dos "Swatch" de colores
+Los numeros son del 900 - 50
+Ejemplo (color:Colors.amber[50],)
+- Primario0
+- Accent (Secundario).
+Para el contenedor es con (Colors)
+--> Tipografia y estilos de texto utilizada en los widget de material
+ la predeterminada es 'Roboto'.
+-- > No recomendable cambiar todos los componentes.
+// iconTheme: IconThemeData(color: Colors.red),
+
+Como modificar widget de una forma más modular, en la siguiente sección.
+-- 2.4 Modelos y modularización de widget --
+Aqui creamos un nuevo archivo en models, llamador personamodelo.dart
+el cual esta enviando parametros de información para el widget.
+Este recibiendolos y poniendo valores en ellos.
+
+Para que no haya errores poner la palabra 'required';
+ 
+-- 2.5 Organización de Layouts --
+Como estructurar las pantallas de forma mejor estructurada.
+-- Regla de la columna
+Recibe una colección de widget.
+
+-- Regla de Listview
+-- Row (widget apilados en el eje horizontal)
+
+Como instanciar de mejor manera el código de
+    //customListTile(persona1),
+    //customListTile(persona2),
+    //customListTile(persona3)
+
+Movemos los modelos a la clase personamodelo
+Creamos una lista y con un for en el body
+
+Al tener varios elementos aparecen franjas amarillas como alerta
+de manera que los widget son mayor que el tamano de la pantalla.
+Para solucionar esto usamos el (Listview) debido a que se puede hacer scroll.
+Los [Sizedbox] tienen reglas normales y cruzadas.
+En (Row) se tiene [mainAxisAligment: mainAxisAligment.center] se posicion en la parte central
+los hijos.
+Hay otro tipo de estructuras que son
+--> stack (Formato superposicion) (Todos los elementos se superponen entre ellos).
+
+--> grid ()
+
+Personalización de widget el más usado es Container
+
+-- 2.6 Personalización de Widget --
+scaffold y liststyle los widget que hemos visto.
+en lugar del listview pondremos columna y un hijo, el error es que 
+tanto columna como y row necesitan un tamano en especifico, se soluciona todos
+colocandolo dentro de un (Expanded.)
+Margen interno para los hijos 
+con (EdgeInsets.all) [margin: EdgeInsets.all(8.0),]
+Los tipos que se pueden poner para el widget son all, symmetric, fromBorderserSide.
+Widget más utilizado es el (container)
+Cuando retornamos un widget es con punto y coma.
+
+-- 2.7 Adición de eventos a widgets --
+(Listview) nos permitia hacer la interaccion del scroll con un gesto.
+Este es el de [Gesture detector]
+      //onTap presionado del boton, lo recibe tanto una función como función anonima
+      onTap: () {
+        //Presionar si ha sido presionado
+        //Presionado largo, si presiono por mucho tiempo, realiza una acción.
+        print('boton presionado!');
+      },
+      onLongPress: () {
+        print('Presionado largo del boton');
+      },
+
+Algunos botones más son
+--> Flatbutton(Se pone un hijo dentro de ese.)
+--> RaisedButton(Tiene la misma estructura de material desing como flatbutton)
+--> OutlineButton()
+
+A los widget se pueden ingresar lógica del usuario
+
+-- 2.8  Estado de un Widget --
+- Como cambio el contenido de mi widget
+Cambiar el titulo cuando presione agregar contacto
+Para ver los cambios tienen que presionar el rayito.
+Una solución se le conoce conoce como patron de diseno.
+State Pattern permite cambiar el estado de los widget
+Puede tener dos tipos 
+--> Init State (nunca cambia o varia).
+--> Set state(variar durante el transcurso de la aplicación).
+
+-- 2.9 StateLess Widget (widget con contenido estático) --
+Creamos un tipo de widget dentro de otra clase y lo pusimos en el main.
+Crear una clase para que no se tenga que repetir el elemento una y otra vez
+
+-- 2.10  Stateful Widget (widget con contenido dinámico) --
+Estado dinamico cambia alrededor de la aplicación
+ //set state actualizar el estado de las variables
+          // setState(() {
+          //    titulo = "Titulo del Boton";
+          // });
+
+-- 2.11  Contexto --
+El state tiene que estar implementado en un contexto.
+
+El arbol de widgets
+todos nuestros widgets andaban dentro del mismo lugar, siendo así una no muy buena practica.
+Para el colocamiento del contexto el tema es un buen ejemplo.
+asi se accede al color del tema context[color: Theme.of(context).primaryColor]
+
+
+

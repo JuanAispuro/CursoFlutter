@@ -1,0 +1,61 @@
+-- 3.1 Navegación entre elementos de la aplicación --
+Estados estaticos y dinamicos
+Pero podemos como interactuar con los elementos con otras funciones,
+las cuales serian la Navegación entre diferentes pantallas.
+Gracias al scalfold al momento de cambiar de pagina se desplega un boton para
+regresarse a la pagina anterior.
+[Navigator.of(context).pop()]
+Con ese comando se regresa.
+
+-- 3.2 Widgets de navegacion recomendados --
+Cambio del contenido dentro de una pantalla
+Usaremos Drawer y appbar, pero tambien hayu bottomnavbar
+[drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(]
+            
+-- 3.3 Flujo de información en la aplciación --
+Revisaremos como pasar información de una pantalla a otra. con listsyle
+
+-- 3.4 Rutas --
+Navegación entre pantallas siendo las rutas
+Agregamos el uso de routes en vez de navigation
+
+
+-- 3.5 Administración del estado --
+widget con estatus dinamico y estatico
+Pero existen alternativas para administrar dichos estados
+pero con otras funciones se usan diferentes herramientas.
+Ahora sera stateless widget
+[  ValueNotifier<String> titulo = ValueNotifier<String>("Agregar Contacto");
+]
+Alternativa para administrar lo de estado.
+
+ -- 3.6 Controladores --
+ Como nosotros cambiamos del tema claro a oscuro, realizando un set state
+ Instanciamos dos controladores por lo que no nos esta agarrando por que lo instanciamos dos veces, se soluciona con un (patron de diseno),
+
+
+[singleton] Este retorna la misma instancia en todos los lugares.
+Los estados de un widget se pueda cambiar fuera de un widget, logrando que no sea necesario el tener que ser su hijo.
+
+
+
+-- 3.7 Keys --
+identificadores de lo widget son las (Keys), subindicador
+Realizaremos una pequena aplicacion para eliminar los elementos del list.
+Existen varias claves pero por ahora sera una simple key()
+
+Otro tipo de clave va ligada al estado del widget
+Scaffold state
+
+-- 3.8 Builder --
+Construir o instanciar objetos dentro del arbol de widgets
+una alternativa de creacion de clases, seria utilizar el widget de tipo builder
+Se tiene que utilizar [scaffoldMessenger] para el showsnackbar
+Instanciar objetos dentro del arbol de widget es usar (Builder),
+Instanciar cada elemento del metodo dentro del listview de forma dinamica con listview.builder.
+
+
+

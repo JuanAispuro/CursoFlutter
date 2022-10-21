@@ -1,4 +1,8 @@
+import 'package:curso_flutter_basico/controllers/theme_controller.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/Home_page.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/form_contacto_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
   runApp(MyApp());
@@ -6,26 +10,37 @@ void main() {
 
 class MyApp extends StatelessWidget {
   //this is the root of your application.
+
+  ThemeController _controller = ThemeController.instancia;
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Container(
-        color: Colors.amberAccent,
-        //Style para editar.
-        //Center widget de posicionamiento.
-        child: Center(
-          child: Text(
-            'Primer widget',
-            textAlign: TextAlign.center,
-            style: TextStyle(decoration: TextDecoration.none),
-          ),
-        ),
-      ),
+    //Widget Padre
+    //Con este widget podemos cambiar el tema de la aplicacion.
+    return ValueListenableBuilder(
+      valueListenable: _controller.isDark,
+      builder: (context, value, child) {
+        return MaterialApp(
+            title: 'Flutter Demo',
+            //Tema de la aplicacion
+            theme: ThemeData(
+              //Tipo de para el texto del tema
+              // textTheme: TextTheme(),
+              //Aqui el background color no funciona.
+              //brightness: Brightness.light,
+              //if ? :
+              brightness: value ? Brightness.dark : Brightness.light,
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+            ),
+            //Container
+            //Scaffold nuevo widget(para implementar el material design)
+            //Siend capaz de implementar un navbar.
+            home: HomePage());
+      },
     );
   }
 }
+
+//Flutter iniciar clases con mayusculas
+//Debemos retornar un widget por defecto
