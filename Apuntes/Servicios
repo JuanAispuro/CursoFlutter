@@ -1,0 +1,42 @@
+-- 6.1 Programación Asíncrona --
+FLujo para descargar una imagen.
+Para ser asincrono 
+Metodo asincrono para hacer un flujo con el tiempo de espera y arreglar y mostrar de manera correcta la forma de administrar el tiempo de espera.
+
+
+-- 6.2 Administración de permisos --
+Para poder usar tipo la camara, acceso a los contactos, de manera que se necesita solitar los permisos.
+Implementarlo en la carpeta de androdid, app, src, manifiest android.xml
+Al presionar los iconos el celular responde.
+Algunos paquetes en flutter son dependientes de codigo dart o nativo, por lo que para acceder es necesario implementarlo de código nativo
+El código usado es [ launch("https://wa.me/+52${person.telefono}?text='hola'");]
+
+-- 6.3 Uso de la cámara del equipo --
+[Image picker] utilizara tanto la camara como la galeria del telefono para el uso de la aplicación.
+[var image = ImagePicker.platform.pickImage(source: ImageSource.camera);]
+
+-- 6.4 Uso de Archivos --
+Manipulación de los archivos
+Creamos el servicio de file_Service 
+[async{
+    String image = await FileService.getImage();
+    setState(() {
+    path = image;
+});]
+Lo instanciamos de la pagina file_service a nuestro form_user_page.dart
+
+-- 6.5 Preferencias Compartidas --
+Instalamos la libreria shared_preferences
+Una recomendación cuando nos topamos con librerias de código abierto es que tenemos que usar
+- flutter clean
+- iniciar de nuevo la aplicación.
+Shared preferences permite almacenar información dentro de la aplicación movil, numericos, string o boleanos, tambien se puede almacenar objetos pero no es algo 
+recomendado debido a la inestabilidad de este.
+
+Cambiaremos la foto del informacion_usuario_page encerrandolo en un metodo futuro
+
+-- 6.6 Consumo de datos de internet --
+Anadiremos el uso de datos mediante una api, usando developer.nytimes.com
+Protocolo HTTP: Protocolo de comnunicación entre la aplicación y servidores de internet.
+Crear un nuevo cuerpo para las API
+En la siguiente seccion vamos a poner la aplicación en modo de apk.

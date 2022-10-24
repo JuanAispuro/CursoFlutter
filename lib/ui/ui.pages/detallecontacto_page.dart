@@ -11,7 +11,7 @@ class DetallesContactoPage extends StatelessWidget {
     //instanciar un objeto de detallescontactopagearguments
     return Scaffold(
         appBar: AppBar(
-          title: Text(persona.nickName),
+          title: Text(persona.nickName!),
           centerTitle: true,
         ),
         body: Center(

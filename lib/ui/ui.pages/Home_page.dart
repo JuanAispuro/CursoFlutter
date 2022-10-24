@@ -1,46 +1,17 @@
-import 'package:curso_flutter_basico/models/persona_model.dart';
-import 'package:curso_flutter_basico/ui/ui.pages/ui%20widgets/custom_buttons.dart';
-import 'package:curso_flutter_basico/ui/ui.pages/ui%20widgets/custom_liststyle.dart';
+import 'package:curso_flutter_basico/services/http_requestservices.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/lista_contactos_page.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/noticias_page.dart';
 import 'package:flutter/material.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/informacion_usuario_page.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-//Creamos una lista con los valores
-List<Personamodelo> persons = [
-  persona1,
-  persona2,
-  persona3,
-  persona1,
-  persona2,
-  persona3,
-  persona1,
-  persona2,
-  persona3
-];
 List<Widget> pages = [
-  Container(
-      child: Column(
-    children: <Widget>[
-      CustomButton(), //Ahora es un  clase.
-      Expanded(
-        child: ListView.builder(
-          //contar items (en este caso las personas.)
-          itemCount: persons.length,
-          itemBuilder: (context, picker) {
-            return Dismissible(
-                background: Container(
-                  color: Colors.red,
-                ),
-                onDismissed: (direction) => persons.removeAt(picker),
-                //Ponemos la posición o otro elemento por ejemplo es normal
-                //El id.
-                key: Key(picker.toString()),
-                child: CustomListTile(person: persons[picker]));
-          },
-        ),
-      )
-    ],
-  )),
-  Container(color: Colors.red),
+  ListaContactosPage(),
+  InformacionUusarioPage(),
+  NoticiasPage(),
 ];
+
+GlobalKey<ScaffoldState> homekey = GlobalKey<ScaffoldState>();
 
 class HomePage extends StatefulWidget {
   @override
@@ -48,8 +19,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String titulo = 'Material App';
+  String titulo = 'Contactos App';
   late int picker;
+  //Nos permitiria ser una función asincrona y le agregamos el async
+  //Si retornamos el string
+  Future<String> DescargarImagen() async {
+    print('Se inicia la descarga de la imagen.');
+    //Probar el proceso con un future
+    await Future.delayed(Duration(seconds: 2), () {});
+    return 'Se termino la descarga de la imagen.';
+  }
 
   @override
   void initState() {
@@ -70,7 +49,9 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     color: Theme.of(context).primaryColor,
                   )),
+              //Inicio
               ListTile(
+                  leading: Icon(MdiIcons.homeCircle),
                   title: Text('Inicio'),
                   onTap: () {
                     Navigator.pop(context); //Para cerrarlo
@@ -78,15 +59,27 @@ class _HomePageState extends State<HomePage> {
                       picker = 0;
                     });
                   }),
+              //Usuario
               ListTile(
-                title: Text('Segunda Pantalla'),
+                leading: Icon(MdiIcons.accountBox),
+                title: Text('Usuario'),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
                     picker = 1;
                   });
                 },
-              )
+              ),
+              //Noticias
+              ListTile(
+                  leading: Icon(MdiIcons.newspaper),
+                  title: Text('Noticias'),
+                  onTap: () {
+                    Navigator.pop(context); //Para cerrarlo
+                    setState(() {
+                      picker = 2;
+                    });
+                  }),
             ],
           ),
         ),
@@ -95,11 +88,19 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: Builder(
           builder: (BuildContext context) {
             return FloatingActionButton(
-              onPressed: () {
-                //Se tiene que utilizar scaffoldMessenger para el showsnackbar
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text("Login failed")));
-                print('Hola Mundo');
+              onPressed: () async {
+                // //Se tiene que utilizar scaffoldMessenger para el showsnackbar
+                // ScaffoldMessenger.of(context)
+                //     .showSnackBar(SnackBar(content: Text("Login failed")));
+                var resultado = await obtenerNoticias();
+
+                //Esto lo revisamos si presionamos el boton de (+);
+                if (resultado != null) {
+                  print(resultado);
+                } else {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("No hay internet")));
+                }
               },
               child: Icon(Icons.add),
             );
@@ -108,9 +109,14 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           //Acciones
           actions: <Widget>[
-            IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.image)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.message))
+            picker == 1
+                ? IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.pushNamed(context, 'form_usuario');
+                    },
+                  )
+                : SizedBox(),
           ],
 
           ///Background color para el appbar
@@ -121,5 +127,3 @@ class _HomePageState extends State<HomePage> {
         body: pages[picker]);
   }
 }
-
-GlobalKey<ScaffoldState> homekey = GlobalKey<ScaffoldState>();

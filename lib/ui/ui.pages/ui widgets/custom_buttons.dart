@@ -3,6 +3,7 @@ import 'package:curso_flutter_basico/controllers/theme_controller.dart';
 import 'package:curso_flutter_basico/ui/ui.pages/Home_page.dart';
 import 'package:curso_flutter_basico/ui/ui.pages/form_contacto_page.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomButton extends StatelessWidget {
   //Escucha la información
@@ -18,13 +19,13 @@ class CustomButton extends StatelessWidget {
       //inkell puede usar tambien material design como su despliegue y naturalez.
       onTap: () {
         presionadDeBoton();
-        titulo.value = "Value notifier button";
+        // titulo.value = "Value notifier button";
         // _controller.ChangeTheme(true);
         //widget para navegar entre pantallas.
         //push ingresar una nueva ruta
         // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
         //   return FormContactoPage();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login failed")));
+        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login failed")));
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return FormContactoPage();
         }));
@@ -46,12 +47,13 @@ class CustomButton extends StatelessWidget {
                 child: Text(
                   //Para acceder al valor es titulo.value
                   value,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor, fontSize: 20.0),
+                  //Usando la libreria de google fonts
+                  style: GoogleFonts.biryani(
+                    color: Theme.of(context).primaryColor, fontSize: 20.0)
+                  )
                 ),
-              ));
+              );
         },
-      ),
-    );
+    ));
   }
 }

@@ -1,10 +1,14 @@
 import 'package:curso_flutter_basico/controllers/theme_controller.dart';
 import 'package:curso_flutter_basico/ui/ui.pages/Home_page.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/error_page.dart';
 import 'package:curso_flutter_basico/ui/ui.pages/form_contacto_page.dart';
+import 'package:curso_flutter_basico/ui/ui.pages/form_user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
+  //Ejecutamos antes que la app
+  ErrorWidget.builder = (FlutterErrorDetails details) => ErrorPage(details: details);
   runApp(MyApp());
 }
 
@@ -21,6 +25,10 @@ class MyApp extends StatelessWidget {
       valueListenable: _controller.isDark,
       builder: (context, value, child) {
         return MaterialApp(
+
+            routes:{
+              'form_usuario':(context) => FormUsuarioPage(),
+            },
             title: 'Flutter Demo',
             //Tema de la aplicacion
             theme: ThemeData(

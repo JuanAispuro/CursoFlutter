@@ -1,0 +1,47 @@
+-- 7.1 Capturando excepciones --
+Controlar los problemas de la situaciones, utilizaremos el método de obtener Noticias.
+Enlazamos el intenet_Services con http_Request intenet_Services
+Encerramos el servicio intenet_Services dentro de un try catch
+tenemos que evaluar siempre con try catch debido a que debemos evitar que la aplicación se brickee
+para evitar la pantalla amarilla utilizaremos el widget de error.
+
+-- 7.2 Widget de Error --
+Creamos una nueva pagina llamada error_page.dart
+en el cual pusimos que un error intencional, luego pusimos adelante del main el error para que lo detecte.
+ 
+-- 7.3 Las pruebas Unitarias --
+Pruebas Unitarias (Las normales)
+Pruebas de widget (Esto de forma directamente el widget/aplicacion/uai)
+pruebas de integración (Al momento de ponerlo en un servidor.)
+
+Las pruebas es una buena manera para realizar un control de calidad de la aplicación.
+utilizamos group para acumular diferentes pruebas.
+
+-- 7.4 Soporte en Pub --
+Ejemplo soporte a las librerias.
+Revisar si las librerias se tienen que actualizar
+--> Cuidado con los codigos abiertos en flutter
+
+-- 7.5 Despliegue de la aplicación -- 
+La aplicación se puede descargar de forma (.apk) o (.aab)
+Se puede revisar desde el visual studio code o desde tambien las carpetas de archivos donde se instalo la aplicacion.
+Si no llega a usar servicios de terceros //Google o querer subirla a la playstore te puedes ahorrar varios pasos.
+[FLutter build apk] asi creas el apk de la aplicacion.
+-- Para subir a la playstore se ocupa un (keystore) la cual se usa para permitir que la aplicacion fue firmada por el desarrollador.
+
+-- 7.6 Que sigue en el mundo de flutter --
+Usar cupertino y material design que son algunas guias de estilo
+
+Se pueden combinar guias de estilo. Disenos personalizados de las aplicaciones usando los canvas que mueven la 
+tipografia, colores, navegacion, animaciones, utilizar diferentes servicios como los serian Firebase y sqlite.
+Pernsar en soporte nativo siendo así android y ios.
+
+Soporte nativo atravez d elos canales de plataforma de forma que dart se puede comunicar con android y ios de forma que con 
+android seria con kotlin o java y switft  o objectsim para ios, con los plataform channels que hacen fluir la información entre las 
+aplicaciones
+
+-- 7.6 Descripcion flutter para web --
+Flutter web se encuentra en una version beta, la cual no es estable pero se puede usar aplicaciones web.
+
+-- 7.8 Despedida -- 
+

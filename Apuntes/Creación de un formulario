@@ -1,1 +1,53 @@
+
 -- 4.1 Widgets a utilizar --
+radio --> Permitir seleccionar un elemento dentro de un grupo de elementos.
+Checkbox --> Seleccionar un numero grande de elementos en un grupo.
+creamos una nueva pagina llamada [lista de contactos].
+En el siguiente video veremos como agregar un nuevo contacto usando la pagaina form_contacto_page.dart
+
+
+-- 4.2 Listas --
+Implementaremos el formulario.
+Iniciamos borrando el boton de body: de la pagina form_contacto_page.
+    [Center(
+            //The RaisedButton is deprecated .
+            child: ElevatedButton(
+            onPressed: () {
+                //Usar el (pop) Cuando se utilice para las alertas
+                // Navigator.of(context).pop(); //pop para regresar a la ruta anterior.
+                Navigator.pop((context)); //Los dos funcionand e la misma forma
+            },
+            child:
+                Text('ir hacia atras'),
+            ),
+        ),]
+Dos tipos de estructuras como listview y listview.builder
+pero otro es el widget [column], pero para agregar el scroll es poner todo dentro del widget
+[SingleChildScrollView], cuando tengas un numero finito usar este y cuando sea infinito es usar la lista.
+Aqui agregamos dos key esn form_contacto_page para validar la información.
+
+
+-- 4.3 Entradas de texto --
+Agregaremos los controladores para el texto.
+Agreamos los controladores del nombre, nickanme y telefono con el widget
+[TextEditingController].
+
+-- 4.4 Personalización de Widget --
+Decoracion con las propiedades dentro del textformfield y usando otro contenedor.
+Lo que agregamos en este apartado son los decoration
+                 [ decoration: InputDecoration(
+                  hintText: 'Nickname',
+                  prefixIcon: Icon(Icons.person),
+                  labelText: 'Nickname '),]
+
+-- 4.5 Eventos Programables --
+Lógica necesaria para agregar el contacto usando el formulario, creando el boton para crear el contacto.
+Para agregar cambiamos todo el contenido de scaffold.
+Si no agregamos ninguno nos regresara una excepcion por lo que necesitamos revisar una validación
+
+-- 4.6 Validación --
+Aqui validamos el uso de letras, el uso de numeros, tambien diferentes tipos de validaciones.
+
+-- 4.7 Revisión de errores --
+Veremos los errores bastantes simples para la creación de formularios.
+1) seria con el custom list style

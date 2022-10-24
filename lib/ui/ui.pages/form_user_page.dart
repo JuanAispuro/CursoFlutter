@@ -1,34 +1,29 @@
-import 'package:curso_flutter_basico/controllers/lista_contactos_controller.dart';
-import 'package:curso_flutter_basico/models/persona_model.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:curso_flutter_basico/services/file_service.dart';
+import 'package:curso_flutter_basico/services/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+//Global keys
 
-GlobalKey<FormState> formContactoKey = GlobalKey<FormState>();
+GlobalKey<ScaffoldState> PageUsuariokey = GlobalKey<ScaffoldState>();
+GlobalKey<FormState> formUsuarioKey = GlobalKey<FormState>();
 
-//Instanciar para el scaffold
-GlobalKey<ScaffoldState> FormPageKey = GlobalKey<ScaffoldState>();
-
-//Clase statefulwidget
-class FormContactoPage extends StatefulWidget {
-  //Creamos una variable
-  late final String? title;
-  FormContactoPage({this.title});
+class FormUsuarioPage extends StatefulWidget {
   @override
-  _FormContactoPageState createState() => _FormContactoPageState();
+  State<FormUsuarioPage> createState() => _FormUsuarioPageState();
 }
 
-class _FormContactoPageState extends State<FormContactoPage> {
+class _FormUsuarioPageState extends State<FormUsuarioPage> {
   //Controlador de texto
   //nombre, nickname telefono del contacto
   late TextEditingController _nombreController;
   late TextEditingController _NicknameController;
   late TextEditingController _TelefonoController;
 
-  //Llamamos a la lista
-  ListaContactosController _controller = ListaContactosController.instancia;
-  //Instanciamos persona modelo
-  final Personamodelo _persona = Personamodelo();
+  late String path;
 
   @override
   void initState() {
@@ -36,11 +31,12 @@ class _FormContactoPageState extends State<FormContactoPage> {
     _nombreController = TextEditingController(text: "");
     _NicknameController = TextEditingController(text: "");
     _TelefonoController = TextEditingController(text: "");
+    path = "";
   }
 
   //Para validar
   bool Validateall() {
-    if (formContactoKey.currentState!.validate()) {
+    if (formUsuarioKey.currentState!.validate()) {
       return true;
     } else {
       return false;
@@ -54,16 +50,15 @@ class _FormContactoPageState extends State<FormContactoPage> {
   Widget build(BuildContext context) {
     //Nuevapantalla
     return Scaffold(
-        key: FormPageKey,
+        key: PageUsuariokey,
         appBar: AppBar(
           centerTitle: true,
-          //Esto por que es una función
-          title: Text('Nuevo contacto'),
+          title: Text('Nuevo Contacto'),
         ),
         body: SingleChildScrollView(
           child: Form(
             //Agregamos el key
-            key: formContactoKey,
+            key: formUsuarioKey,
             //Agregamos padding
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -87,37 +82,8 @@ class _FormContactoPageState extends State<FormContactoPage> {
                             borderSide: BorderSide(
                                 color: Theme.of(context)
                                     .primaryColor))), //con este le ponemos el color del tema
-                    onChanged: (value) => _persona.nombre = value,
+                    onChanged: (value) => () {},
                     controller: _nombreController,
-                  ),
-
-                  //Nickanme
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Theme.of(context).primaryColor),
-                    ),
-                    //recibir el valor que se esta cambiando [onChanged]
-                    //label para identificar.
-                    child: TextFormField(
-                      inputFormatters: [
-                        FilteringTextInputFormatter.deny(RegExp('[0-9]'))
-                      ],
-                      // ---- Validación ----
-                      validator: ((value) => validate(value!, "Nickname")),
-                      decoration: InputDecoration(
-                          hintText: 'Nickname',
-                          labelText: 'Nickname ',
-                          prefixIcon: Icon(Icons.person),
-                          border:
-                              OutlineInputBorder(borderSide: BorderSide.none)),
-                      onChanged: (value) => _persona.nickName = value,
-                      controller: _NicknameController,
-                    ),
                   ),
                   SizedBox(
                     height: 8.0,
@@ -140,8 +106,42 @@ class _FormContactoPageState extends State<FormContactoPage> {
                         hintText: 'Telefono',
                         prefixIcon: Icon(Icons.call),
                         labelText: 'Ej. (+52) 6642043777 '),
-                    onChanged: (value) => _persona.telefono = value,
+                    onChanged: (value) => () {},
                     controller: _TelefonoController,
+                  ),
+                  //Container para mostrar las imagenes
+                  //Esto es un if
+                  path == ""
+                      ? SizedBox()
+                      : Container(
+                          child: Image.file(File(path)),
+                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      //Camara
+                      OutlinedButton(
+                        onPressed: () async {
+                          //File service es asincrona asi que lo administramos con un asyc y un await
+                          String image =
+                              await FileService.getImage(camera: true);
+                          setState(() {
+                            path = image;
+                          });
+                        },
+                        child: Text('Abrir Camara'),
+                      ),
+                      //Galeria
+                      OutlinedButton(
+                        onPressed: () async {
+                          String image = await FileService.getImage();
+                          setState(() {
+                            path = image;
+                          });
+                        },
+                        child: Text('Abrir Galeria'),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 32),
                   //Boton
@@ -151,13 +151,28 @@ class _FormContactoPageState extends State<FormContactoPage> {
                       primary: Theme.of(context).primaryColor,
                     ),
                     onPressed: () {
-                      //Agregamos para que agregue el contacto
-                      _controller.contactos.value =
-                          List.from(_controller.contactos.value)..add(_persona);
-                      Navigator.pop(context);
+                      //Seleccionamos la foto
+                      File file = File(path);
+                      //ahora la convertimos a bits
+                      // file.readAsBytesSync();
+                      //ahora recibe la lista de bits
+                      //Guardamos el archivo en una cadena.
+                      String imageConvert =
+                          base64Encode(file.readAsBytesSync());
+
+                      //Agregamos el shared preferences, de manera que accederemos al valor del nombre controller.
+                      SharedPreferencesServices.writestring(
+                          key: 'nombre', value: _nombreController.text);
+                      //ahora el siguiente
+                      SharedPreferencesServices.writestring(
+                          key: 'telefono', value: _TelefonoController.text);
+                      SharedPreferencesServices.writestring(
+                          key: 'imagen', value: imageConvert);
+
+                      print('Se guardo las preferencias');
                     },
                     child: Text(
-                      'Agregar Contacto',
+                      'Actualizar usuario.',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

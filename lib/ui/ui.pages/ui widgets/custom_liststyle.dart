@@ -1,6 +1,8 @@
 import 'package:curso_flutter_basico/models/persona_model.dart';
 import 'package:flutter/material.dart';
 import 'package:curso_flutter_basico/ui/ui.pages/detallecontacto_page.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomListTile extends StatelessWidget {
   final Personamodelo person;
@@ -12,7 +14,7 @@ class CustomListTile extends StatelessWidget {
       onTap: () {
         Navigator.push(context,MaterialPageRoute(builder: (context){
           return DetallesContactoPage(persona: person,
-          contenido: person.nombre.contains("Valeria")? "Nuevo Contenido": "Nuevo Contenido");
+          contenido: person.nombre!.contains("Valeria")? "Nuevo Contenido": "Nuevo Contenido");
         }));
        
       },
@@ -23,15 +25,23 @@ class CustomListTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            Icon(person.iconderecha),
-            SizedBox(width: 8.00),
-            Icon(Icons.call)
+            IconButton(icon: Icon(MdiIcons.whatsapp), onPressed: () {
+              launch("https://wa.me/+52${person.telefono}?text='hola'");
+            }),
+            IconButton(icon: Icon(MdiIcons.phone), onPressed: () {
+              //mandar comando con launch.
+              launch("tel:${person.telefono}");
+            }),
           ],
         ),
       ),
-      leading: Icon(person.iconizquierda),
-      title: Text(person.nombre),
-      subtitle: Text(person.description),
+      //Para agregar aun lado de nuevo contacto
+      leading: CircleAvatar(child: Text(
+        //Con esto se pone aun lado la primera letra del nombre.
+        person.nombre![0].toUpperCase()),
+        ),
+      title: Text(person.nombre ?? ""),
+      subtitle: Text(person.nickName ?? ""),
     );
   }
 }

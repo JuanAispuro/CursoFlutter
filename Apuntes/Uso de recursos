@@ -1,0 +1,28 @@
+-- 5.1 Pub y Pubspec --
+Adición de cursos externos como audio, video, etc
+En pubspec.yaml podemos alisionar librerias o recursos externos como imagenes etc.
+Revisar pub.dev para ver todas las libreriras o recursos.
+
+-- 5.2 Fuentes --
+Adicionaremos recursos externos en la aplicación siendo el primero las Fuentes
+Forma fisica, un archivo y forma externa una libreria.
+
+-- 5.3 Imágenes --
+Ingresar una imagen 
+(AssetImage) para cuando descargemos la imagen, que la estructuraremos en pubspec.yaml.
+En código es:  image: DecorationImage(
+                image: NetworkImage(
+                  //Con fit: Boxfit es para que se ajuste al espacio.
+                'https://i.pinimg.com/originals/72/c5/e1/72c5e19fb68855faffb76cc22d92c791.png'), fit: BoxFit.cover)),
+
+-- 5.4 Iconos -- 
+Implementar el uso de iconos dentro de la aplicació movil 
+Para implementar un icono con un libereria es insertando la librerira y agregar [leading:Icon(MdiIcons.accountBox)],
+Para agregar como archivo es con const IconData whatsAppIcon = IconData(0xea93,fontFamily: 'CustomIcon')
+
+ 
+-- 5.5 Uso de archivos .JSON --
+Esto nos servira por si tenemos que utilziar información de forma externa de la aplicación, tipo .txt
+Para eso creamos el archivo json dentro de assets
+Adicionar el json en pubspec.
+ 
